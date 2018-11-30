@@ -18,9 +18,25 @@
  *         - this経由でforEachメソッドを実行する
  */
 
+// myArrayを定義
+const myArray = {
+    array: [1, 2, 3]
+};
+
+// Array.prototype.forEachと同じ機能を持つメソッド
+myArray.forEach = function (callback) {
+    for (let i = 0; i < this.array.length; i++) {
+        callback(this.array[i], i);
+    }
+};
 
 // ここでmyArray.forEachを実行して、console.logを使って各値とインデックスを出力する
 
+myArray.forEach((num, index) => {
+    console.log('index : ' + index + ', value : ' + num);
+});
+
+// Array.prototype.map()」と同じ機能を持つメソッド
 
 // ここでmyArray.mapを実行したあと、mapの戻り値とmyArray.arrayをconsole.logで出力する
 // mapメソッドで取得する値は、myArray.arrayの各要素をindex倍した値とする。(value * index)
