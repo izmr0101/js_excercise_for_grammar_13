@@ -36,11 +36,22 @@ myArray.forEach((num, index) => {
     console.log('index : ' + index + ', value : ' + num);
 });
 
-// Array.prototype.map()」と同じ機能を持つメソッド
+// Array.prototype.map()と同じ機能を持つメソッド
+
+myArray.map = function () {
+    let newArrayByMap = [];
+    this.forEach((num, index) => {
+        newArrayByMap.push(num * index);
+    });
+    return newArrayByMap;
+};
 
 // ここでmyArray.mapを実行したあと、mapの戻り値とmyArray.arrayをconsole.logで出力する
 // mapメソッドで取得する値は、myArray.arrayの各要素をindex倍した値とする。(value * index)
 // mapの戻り値は[0, 2, 6], myArray.arrayの値は[1, 2, 3]であるべき
+
+console.log('myArray.arrayは[1, 2, 3]であるべき。： ' , myArray.array);
+console.log('mapの戻り値は[0, 2, 6]であるべき。： ' , myArray.map());
 
 
 //ここでfilterを実行したあと、filterの戻り値とmyArray.arrayをconsole.logで出力する
