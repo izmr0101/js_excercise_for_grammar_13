@@ -38,10 +38,10 @@ myArray.forEach((num, index) => {
 
 // Array.prototype.map()と同じ機能を持つメソッド
 
-myArray.map = function () {
-    let newArrayByMap = [];
+myArray.map = function (callback) {
+    const newArrayByMap = [];
     this.forEach((num, index) => {
-        newArrayByMap.push(num * index);
+        newArrayByMap.push(callback(num, index));
     });
     return newArrayByMap;
 };
@@ -50,10 +50,32 @@ myArray.map = function () {
 // mapメソッドで取得する値は、myArray.arrayの各要素をindex倍した値とする。(value * index)
 // mapの戻り値は[0, 2, 6], myArray.arrayの値は[1, 2, 3]であるべき
 
-console.log('myArray.arrayは[1, 2, 3]であるべき。： ' , myArray.array);
-console.log('mapの戻り値は[0, 2, 6]であるべき。： ' , myArray.map());
+const returnedValueOfMap = myArray.map((num, index) => {
+    return num * index;
+});
 
+console.log('myArray.arrayは[1, 2, 3]であるべき。： ', myArray.array);
+console.log('mapの戻り値は[0, 2, 6]であるべき。： ', returnedValueOfMap);
+
+// array.prototype.filter()と同じ機能を持つメソッド
+
+myArray.filter = function (callback) {
+    const newArrayByFilter = [];
+    this.forEach((num, index) => {
+        if (callback(num, index)) {
+            newArrayByFilter.push(num);
+        }
+    });
+    return newArrayByFilter;
+};
 
 //ここでfilterを実行したあと、filterの戻り値とmyArray.arrayをconsole.logで出力する
 // filterメソッドで取得する値は、myArray.arrayの奇数だけとする
 // filterの戻り値は[1, 3], myArray.arrayの値は[1, 2, 3]であるべき
+
+const returnedValueOfFilter = myArray.filter((num, index) => {
+    return num % 2 === 1;
+});
+
+console.log('myArray.arrayは[1, 2, 3]であるべき。： ', myArray.array);
+console.log('filterの戻り値は[1, 3]であるべき。： ', returnedValueOfFilter);
