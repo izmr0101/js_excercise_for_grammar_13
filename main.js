@@ -20,31 +20,36 @@
 
 // myArrayを定義
 const myArray = {
-    array: [1, 2, 3]
+    array: [1, 2, 3],
+    forEach : function (callback) {
+        for (let i = 0; i < this.array.length; i++) {
+            callback(this.array[i], i);
+        }
+    },
+    map : function (callback) {
+        const newArrayByMap = [];
+        this.forEach((num, index) => {
+            newArrayByMap.push(callback(num, index));
+        });
+        return newArrayByMap;
+    },
+    filter : function (callback) {
+        const newArrayByFilter = [];
+        this.forEach((num, index) => {
+            if (callback(num, index)) {
+                newArrayByFilter.push(num);
+            };
+        });
+        return newArrayByFilter;
+    }    
 };
 
-// Array.prototype.forEachと同じ機能を持つメソッド
-myArray.forEach = function (callback) {
-    for (let i = 0; i < this.array.length; i++) {
-        callback(this.array[i], i);
-    }
-};
 
 // ここでmyArray.forEachを実行して、console.logを使って各値とインデックスを出力する
 
 myArray.forEach((num, index) => {
     console.log('index : ' + index + ', value : ' + num);
 });
-
-// Array.prototype.map()と同じ機能を持つメソッド
-
-myArray.map = function (callback) {
-    const newArrayByMap = [];
-    this.forEach((num, index) => {
-        newArrayByMap.push(callback(num, index));
-    });
-    return newArrayByMap;
-};
 
 // ここでmyArray.mapを実行したあと、mapの戻り値とmyArray.arrayをconsole.logで出力する
 // mapメソッドで取得する値は、myArray.arrayの各要素をindex倍した値とする。(value * index)
@@ -56,18 +61,6 @@ const returnedValueOfMap = myArray.map((num, index) => {
 
 console.log('myArray.arrayは[1, 2, 3]であるべき。： ', myArray.array);
 console.log('mapの戻り値は[0, 2, 6]であるべき。： ', returnedValueOfMap);
-
-// array.prototype.filter()と同じ機能を持つメソッド
-
-myArray.filter = function (callback) {
-    const newArrayByFilter = [];
-    this.forEach((num, index) => {
-        if (callback(num, index)) {
-            newArrayByFilter.push(num);
-        }
-    });
-    return newArrayByFilter;
-};
 
 //ここでfilterを実行したあと、filterの戻り値とmyArray.arrayをconsole.logで出力する
 // filterメソッドで取得する値は、myArray.arrayの奇数だけとする
